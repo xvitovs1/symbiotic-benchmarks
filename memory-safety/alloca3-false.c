@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <alloca.h>
 
 // function returns array of numbers
 int * getNumbers() {
 
-   int array[10]; // array should be static
+   int *array = alloca(10 * sizeof(int)); // array should be static
 
    for (int i = 0; i < 10; ++i) {
       array[i] = i;

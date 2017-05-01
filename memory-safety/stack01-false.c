@@ -3,7 +3,7 @@
 int *foo2(void)
 {
 	int arr[1024];
-	arr[194] = 13; 
+	arr[194] = 13;
 	return arr + 1;
 }
 
