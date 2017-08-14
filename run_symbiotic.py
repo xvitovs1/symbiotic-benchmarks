@@ -19,6 +19,7 @@ running_processes = []
 class bcolors:
     ERROR = '\033[1;31m'
     OK = '\033[1;32m'
+    WARNING = '\033[93m'
     ENDC = '\033[0m'
 
 class Timeout(Exception):
@@ -117,8 +118,10 @@ def say_result(res, filename):
     result = res.replace('RESULT: ', '')
     if (fn.endswith('false') and result.startswith('true')) or (fn.endswith('true') and result.startswith('false')):
         print(bcolors.ERROR + res + bcolors.ENDC)
+    elif (result.startswith('unknnown') or result.startswith('timeout')):
+        print(bcolors.WARNING + res + bcolors.ENDC)
     else:
-        print(res)
+        print(bcolors.OK + res + bcolors.ENDC)
     
     return res
 
