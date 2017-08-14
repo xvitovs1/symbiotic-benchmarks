@@ -16,6 +16,11 @@ arch=None
 
 running_processes = []
 
+class bcolors:
+    ERROR = '\033[1;31m'
+    OK = '\033[1;32m'
+    ENDC = '\033[0m'
+
 class Timeout(Exception):
     pass
 
@@ -107,8 +112,14 @@ def parse_args():
 
     return args
 
-def say_result(res):
-    print(res)
+def say_result(res, filename):
+    fn = filename.replace('.c', '')
+    result = res.replace('RESULT: ', '')
+    if (fn.endswith('false') and result.startswith('true')) or (fn.endswith('true') and result.startswith('false')):
+        print(bcolors.ERROR + res + bcolors.ENDC)
+    else:
+        print(res)
+    
     return res
 
 def sigpipe_handler(signum, data):
@@ -165,7 +176,7 @@ if __name__ == "__main__":
             outf = open(outputfile, 'r')
             for line in iter(outf.readlines()):
                 if line.startswith('RESULT'):
-                    result = say_result(line)
+                    result = say_result(line, filename)
 
     sys.stdout.flush()
 
