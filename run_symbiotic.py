@@ -116,9 +116,9 @@ def parse_args():
 def say_result(res, filename):
     fn = filename.replace('.c', '')
     result = res.replace('RESULT: ', '')
-    if (fn.endswith('false') and result.startswith('true')) or (fn.endswith('true') and result.startswith('false')):
+    if (fn.endswith('false') and result.startswith('true')) or (fn.endswith('true') and result.startswith('false')) or result.startswith('ERROR'):
         print(bcolors.ERROR + res + bcolors.ENDC)
-    elif (result.startswith('unknnown') or result.startswith('timeout')):
+    elif (result.startswith('unknown') or result.startswith('timeout')):
         print(bcolors.WARNING + res + bcolors.ENDC)
     else:
         print(bcolors.OK + res + bcolors.ENDC)
@@ -174,7 +174,7 @@ if __name__ == "__main__":
     
         if p.returncode != 0:
             print('Symbiotic returned with {0}'.format(p.returncode))
-            result = say_result('ERROR')
+            print(bcolors.ERROR + 'ERROR' + bcolors.ENDC)
         else:
             outf = open(outputfile, 'r')
             for line in iter(outf.readlines()):
