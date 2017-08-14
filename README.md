@@ -1,2 +1,2 @@
 # symbiotic-benchmarks
-Benchmarks for Symbiotic
+Benchmarks for Symbiotic (https://github.com/staticafi/symbiotic)
