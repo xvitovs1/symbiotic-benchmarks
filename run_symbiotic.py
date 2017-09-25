@@ -7,12 +7,13 @@ import signal
 import subprocess
 
 debug = False
-timeout=0
+timeout = 0
 slce = True
 prp = None
 pta = None
-optimize=None
-arch=None
+optimize = None
+arch = None
+noopt = False
 
 running_processes = []
 
@@ -43,6 +44,9 @@ def run_symbiotic(benchmark, outputfile):
     if debug:
         cmd.append('--debug=all')
 
+    if noopt:
+        cmd.append('--no-optimize')
+    
     if not prp is None:
        cmd.append('--prp={0}'.format(prp))
 
@@ -83,7 +87,8 @@ def run_symbiotic(benchmark, outputfile):
 def parse_args():
     try:
         opts, args = getopt.getopt(sys.argv[1:], '', ['timeout=', 'debug', 'no-slice',
-                                                      '64', 'prp=', 'pta=', 'optimize='])
+                                                      '64', 'prp=', 'pta=', 'optimize=', 
+                                                      'no-optimize'])
     except getopt.GetoptError as e:
         print('{0}'.format(str(e)))
         sys.exit(1)
@@ -99,6 +104,9 @@ def parse_args():
         elif opt == '--no-slice':
             global slce
             slce = False
+        elif opt == '--no-optimize':
+            global noopt
+            noopt = True
         elif opt == '--64':
             global arch
             arch = '64bit'
