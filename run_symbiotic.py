@@ -41,12 +41,13 @@ def stop_timeout():
 def run_symbiotic(benchmark, outputfile):
 	# must be run from symbiotic/install/bin folder for now
     cmd = ['./symbiotic']
+    cmd.append('--no-integrity-check')
     if debug:
         cmd.append('--debug=all')
 
     if noopt:
         cmd.append('--no-optimize')
-    
+
     if not prp is None:
        cmd.append('--prp={0}'.format(prp))
 
